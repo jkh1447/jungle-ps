@@ -1,12 +1,16 @@
 import math
+import sys
+import queue
+import copy
 
-n = int(input())
-lst = [0 for i in range(10001)]
+n = int(sys.stdin.readline())
 
-for i in range(n):
-    lst[int(input())] += 1
+arr = [0 for _ in range(10001)]
+
+for _ in range(n):
+    arr[int(sys.stdin.readline())] += 1
 
 for i in range(1, 10001):
-    if lst[i] != 0:
-        for j in range(lst[i]):
+    if arr[i]:
+        for _ in range(arr[i]):
             print(i)
