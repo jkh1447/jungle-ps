@@ -1,21 +1,19 @@
 import math
+import sys
+import queue
+import copy
 
-# a에서 c로 n개를 옮기는 함수
-# n이 1일땐 그냥 옮기기
-
-def func(a, c, n):
+def func(n, a, b):
     if n == 1:
-        print(f"{a} {c}")
+        print(f"{a} {b}")
         return
 
-    func(a, 6-a-c, n-1)
-    print(f"{a} {c}")
-    func(6-a-c, c, n-1)
+    func(n-1, a, 6-a-b)
+    print(f"{a} {b}")
+    func(n-1, 6-a-b, b)
 
+n = int(sys.stdin.readline())
 
-n = int(input())
-if n > 20:
-    print(2**n - 1)
-else:    
-    print(2**n - 1)
-    func(1, 3, n)
+print(f"{(1 << n) - 1}")
+if n <= 20:
+    func(n, 1, 3)
