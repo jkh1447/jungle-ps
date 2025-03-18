@@ -1,8 +1,12 @@
-a, b, v = list(map(int, input().split()))
-count = 0
-snail = 0
+import math
+import sys
+import queue
+import copy
+from itertools import combinations
 
-if (v-b) % (a-b) == 0:
-    print((v-b) // (a-b))
+a, b, v = list(map(int, sys.stdin.readline().strip().split()))
+
+if (v-a) % (a-b) == 0:
+    print((v-a) // (a-b) + 1)
 else:
-    print((v-b) // (a-b) + 1)
+    print((v-a) // (a-b) + 2)
