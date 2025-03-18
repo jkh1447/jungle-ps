@@ -1,32 +1,31 @@
 import math
 import sys
+import queue
+import copy
+from itertools import combinations
 
-def permutation(nums, k):
-    def func(path, used):
+def permutation(arr, k):
+    def func(path, visited):
         if len(path) == k:
             result.append(path[:])
             return
-        for i in range(len(nums)):
-            if not used[i]:
-                used[i] = True
-                path.append(nums[i])
-                func(path, used)
-                used[i] = False
+        for i in range(len(arr)):
+            if not visited[i]:
+                visited[i] = True
+                path.append(arr[i])
+                func(path, visited)
+                visited[i] = False
                 path.pop()
-
     result = []
-    func([], [False] * len(nums))
+    func([], [False for _ in range(len(arr))])
     return result
-
 n = int(input())
-lst = list(map(int, sys.stdin.readline().split()))
-
-max = 0
-for arr in permutation(lst, len(lst)):
-    sum = 0
-    for i in range(len(arr) - 1):
-        sum += abs(arr[i] - arr[i+1])
-    if max < sum:
-        max = sum
-
-print(max)
+arr = list(map(int, sys.stdin.readline().strip().split()))
+ans = 0
+for lst in permutation(arr, len(arr)):
+    hap = 0
+    for i in range(len(lst) - 1):
+        hap += abs(lst[i] - lst[i+1])
+    if hap > ans:
+        ans = hap
+print(ans)
