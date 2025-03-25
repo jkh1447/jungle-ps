@@ -15,37 +15,25 @@ def func(st, en):
 
     max_area = max(func(st, mid), func(mid+1, en))
  
-    left = mid-1
-    right = mid+1
-    cur_height = arr[mid]
-    if max_area < cur_height: max_area=cur_height
-    while left >= st or right <= en:
+     # 중앙을 포함하는 최대 넓이 계산
+    left = mid
+    right = mid
+    min_height = arr[mid]
+    max_area = max(max_area, min_height)
 
-        if left >= st and arr[left] == 0 and right > en:
-            break
-        if right <= en and arr[right] == 0 and left < st:
-            break
-        if left < st or arr[left] == 0:
-            if arr[right] <= cur_height:
-                cur_height = arr[right]
-            right+=1
-        elif right > en or arr[right] == 0 :
-            if arr[left] <= cur_height:
-                cur_height = arr[left]
-            left-=1
-        elif arr[left] > arr[right]:
-            if arr[left] <= cur_height:
-                cur_height = arr[left]
-            left-=1
+    while left > st or right < en:
+        if right < en and (left == st or arr[right + 1] > arr[left - 1]):
+            right += 1
+            min_height = min(min_height, arr[right])
         else:
-            if arr[right] <= cur_height:
-                cur_height = arr[right]
-            right+=1
-        
-        if max_area < cur_height * (right-left-1):
-            max_area = cur_height * (right-left-1)
-          
+            left -= 1
+            min_height = min(min_height, arr[left])
+
+        max_area = max(max_area, min_height * (right - left + 1))
+
     return max_area
+          
+
 
 while True:
     arr = list(map(int, sys.stdin.readline().strip().split()))
