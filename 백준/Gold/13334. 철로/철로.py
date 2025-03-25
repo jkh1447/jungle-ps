@@ -7,19 +7,23 @@ from itertools import combinations
 sys.setrecursionlimit(100000)
 
 n = int(input())
-ho = []
+lst = []
 for _ in range(n):
-    a, b = list(map(int, sys.stdin.readline().strip().split()))
-    ho.append([min(a, b), max(a, b)])
-ho.sort(key=lambda x: x[1])
+    h, o = list(map(int, sys.stdin.readline().strip().split()))
+    if h<o:
+        lst.append([h, o])
+    else:
+        lst.append([o, h])
+
+lst.sort(key=lambda x: x[1])
 d = int(input())
+heap = []
+ans = 0
+for i in range(n):
+    heapq.heappush(heap, lst[i][0])
+    while heap and heap[0] < lst[i][1] - d:
+        heapq.heappop(heap)
+    if ans < len(heap):
+        ans = len(heap)
 
-
-pq = []
-
-max_val = 0
-for i in range(len(ho)):
-    heapq.heappush(pq, ho[i][0])
-    while len(pq) != 0 and pq[0] < ho[i][1] - d: heapq.heappop(pq)
-    max_val = max(max_val, len(pq))
-print(max_val)
+print(ans)
