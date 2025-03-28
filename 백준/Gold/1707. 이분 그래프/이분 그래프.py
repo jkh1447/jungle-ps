@@ -18,49 +18,28 @@ for _ in range(t):
         adj[u].append(v)
         adj[v].append(u)
     
-    visited = [0 for _ in range(ver+1)] 
 
+    
     q = deque()
 
-    colored = [0 for _ in range(ver+1)]
-
-    for i in range(1, v+1):
-        if not visited[i]:
-            q.append(i)
-            visited[i] = 1
-            colored[i] = 1
-            while q:
-                cur = q.popleft()
-                cur_color = colored[cur]
-
-                for nxt in adj[cur]:
-
-                    if not visited[nxt]:
-
-                        visited[nxt] = 1
-                        if cur_color == 1:
-                            colored[nxt] = 2
-                        else:
-                            colored[nxt] = 1
-                        q.append(nxt)
-
-    visited = [0 for _ in range(ver+1)]
+    colored = [-1 for _ in range(ver+1)]
 
     flag = False
     for i in range(1, v+1):
-        if not visited[i]:
+        if colored[i] == -1:
             q.append(i)
-            visited[i] = 1
+            colored[i] = 0
             while q:
                 cur = q.popleft()
-                cur_color = colored[cur]
                 for nxt in adj[cur]:
-                    if cur_color == colored[nxt]:
-                        flag = True
-                        break
-                    if not visited[nxt]:
-                        visited[nxt] = 1
+                    if colored[nxt] == -1:
+                        colored[nxt] = 1 - colored[cur]
                         q.append(nxt)
+                    else:
+                        if colored[cur] == colored[nxt]:
+                            flag = True
+                            break
+    
     
     if flag:
         print('NO')
