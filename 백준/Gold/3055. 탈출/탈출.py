@@ -58,7 +58,11 @@ while q:
 
         if nx < 0 or nx >= r or ny < 0 or ny >= c: continue
         if board[nx][ny] == 'X' or board[nx][ny] == '*' or s_dist[nx][ny] >= 0: continue
-        if w_dist[nx][ny] == -1 or s_dist[x][y] + 1 < w_dist[nx][ny]:
+        if w_dist[nx][ny] == -1 and s_dist[nx][ny] == -1:
+            s_dist[nx][ny] = s_dist[x][y] + 1
+            q.append((nx, ny)) 
+            continue
+        if s_dist[nx][ny] == -1 and s_dist[x][y] + 1 < w_dist[nx][ny] and w_dist[nx][ny] != -1:
             s_dist[nx][ny] = s_dist[x][y] + 1
             q.append((nx, ny))
 if not flag:
