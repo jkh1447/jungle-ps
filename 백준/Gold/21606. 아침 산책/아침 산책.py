@@ -32,14 +32,11 @@ def dfs(x):
         elif state[nxt] == 0 and not visited[nxt]:
             visited[nxt] = 1
             dfs(nxt)
-    return cnt
 
 
 for i in range(1, n+1):
     if state[i] == 0 and not visited[i]:
-    
         dfs(i)
-
         ans += cnt * (cnt-1)
         cnt = 0
 
