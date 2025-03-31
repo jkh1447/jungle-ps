@@ -4,7 +4,7 @@ from collections import deque
 import heapq
 import copy
 from itertools import combinations
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(1000000)
 dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
 
