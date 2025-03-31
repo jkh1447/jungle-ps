@@ -1,39 +1,46 @@
 import math
 import sys
-import queue
-
+from collections import deque
+import heapq
 import copy
 from itertools import combinations
+sys.setrecursionlimit(100000)
 
-bracket = sys.stdin.readline().strip()
-s = []
-hap = 0
-cur = 1
+lst = list(sys.stdin.readline().strip())
+
+s=[]
 flag = False
-for i in range(len(bracket)):
-    if bracket[i] == '(':
-        s.append('(')
+ans = 0
+cur = 1
+for i in range(len(lst)):
+    if lst[i]=='(':
         cur *= 2
-    elif bracket[i] == '[':
-        s.append('[')
+        s.append('(')
+    elif lst[i]=='[':
         cur *= 3
-    elif bracket[i] == ')':
-        if len(s) == 0 or s[-1] != '(':
+        s.append('[')
+    elif lst[i]==')':
+        if len(s) == 0 or s[-1] != '(': 
             flag = True
             break
-        if bracket[i-1] == '(':
-            hap += cur
-        cur = cur // 2
-        s.pop()
+        if lst[i-1] == '(':
+            ans += cur
+            s.pop()
+        else:
+            s.pop()
+        cur //= 2
     else:
-        if len(s) == 0 or s[-1] != '[':
+        if len(s) == 0 or s[-1] != '[': 
             flag = True
             break
-        if bracket[i-1] == '[':
-            hap += cur
-        cur = cur // 3
-        s.pop()
+        if lst[i-1] == '[':
+            ans += cur
+            s.pop()
+        else:
+            s.pop()
+        cur //= 3
 
-if flag or len(s)!=0: 
+if flag or len(s) != 0:
     print(0)
-else: print(hap)
+else:
+    print(ans)
