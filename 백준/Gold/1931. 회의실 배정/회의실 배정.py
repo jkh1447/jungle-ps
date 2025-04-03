@@ -14,13 +14,10 @@ for _ in range(n):
     s, e = list(map(int, sys.stdin.readline().strip().split()))
     arr.append((s, e))
 arr.sort(key=lambda x: (x[1], x[0]))
-ans = 1
-
-
-cur_end = arr[0][1]
-for i in range(1, n):
-    if arr[i][0] >= cur_end:
-        ans+=1
-        cur_end = arr[i][1]
-
+ans = 0
+t=0
+for i in range(n):
+    if t > arr[i][0]: continue
+    t = arr[i][1]
+    ans+=1
 print(ans)
