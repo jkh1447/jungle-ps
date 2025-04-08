@@ -5,24 +5,19 @@ import heapq
 import copy
 from itertools import combinations
 sys.setrecursionlimit(100000)
+dx = [1, 0, -1, 0]
+dy = [0, 1, 0, -1]
 
 n = int(input())
-a = list(map(int, sys.stdin.readline().strip().split()))
 
-lst = [a[0]]
-for i in range(1, n):
-    if a[i] > lst[-1]:
-        lst.append(a[i])
-    else:
-        st = 0
-        en = len(lst)
-        while st < en:
-            mid = (st+en)//2
+lst = list(map(int, sys.stdin.readline().strip().split()))
 
-            if lst[mid] >= a[i]:
-                en = mid
-            else:
-                st = mid + 1
-        lst[st] = a[i]
+d = [1 for _ in range(n)]
 
-print(len(lst))
+for i in range(n):
+    for j in range(i):
+        if lst[j] < lst[i]:
+            d[i] = max(d[i], d[j] + 1)
+
+                
+print(max(d))
