@@ -13,21 +13,19 @@ int main(void) {
 	string s;
 	cin >> s;
 
-	long ans = 0;
-	long tmp = 0;
-	long mul = 1;
-	for (int i = n-1; i >= 0; i--) {
-		if (!isdigit(s[i])) {
-			
+	long long tmp = 0;
+	long long ans = 0;
+
+	for (char c : s) {
+		if ('0' <= c && c <= '9') {
+			tmp *= 10;
+			tmp += c - '0';
+		}
+		else {
 			ans += tmp;
 			tmp = 0;
-			mul = 1;
-			continue;
 		}
-		tmp += (s[i] - '0') * mul;
-		mul *= 10;
 	}
 	ans += tmp;
 	cout << ans;
-	
 }
