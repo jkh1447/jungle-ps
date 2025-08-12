@@ -34,8 +34,8 @@ int main(void) {
 		for (auto cur = clst.begin(); cur != clst.end(); cur++) {
 			ans *= ((*cur).Y.size() + 1);
 		}
-		if (n == 0) cout << 0 << "\n";
-		else cout << ans - 1 << "\n";
+		
+		cout << ans - 1 << "\n";
 	}
 	
 
