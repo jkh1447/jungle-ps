@@ -39,18 +39,24 @@ int main(void) {
 		v.push_back({ x, y });
 	}
 	sort(v.begin(), v.end());
+	
 	long long ans = 0;
-	int e = -0x3f3f3f3f;
-	for (auto nxt : v) {
-		if (nxt.Y <= e) continue;
+	
+	int l = v[0].X, r = v[0].Y;
+	for (int i = 1; i < v.size(); i++) {
+		int a, b;
+		tie(a, b) = v[i];
 
-		if (nxt.X < e) 
-			ans += nxt.Y - e;
-		else
-			ans += nxt.Y - nxt.X;
-		e = nxt.Y;
+		if (r <= a) {
+			ans += r - l;
+			l = a, r = b;
+		}
+		else if (a < r && r <= b) {
+			r = b;
+		}
+		else if (l <= a && b <= r) continue;
 	}
 
-	cout << ans;
+	cout << ans + (r - l);
 }
 
