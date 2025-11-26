@@ -30,14 +30,6 @@ vector<int> vis(10, 0);
 vector<string> ans;
 void solve() {
     if (p.size() == N + 1) {
-        for (int i = 0; i < N; i++) {
-            if (v[i] == '<') {
-                if (p[i] >= p[i + 1]) return;
-            }
-            else if (v[i] == '>') {
-                if (p[i] <= p[i + 1]) return;
-            }
-        }
         string num = "";
         for (int i = 0; i < N + 1; i++) {
             num += p[i];
@@ -48,6 +40,7 @@ void solve() {
 
     for (int i = 0; i < 10; i++) {
         if (vis[i]) continue;
+        if (p.size() > 0 && ((v[p.size() - 1] == '<' && p[p.size() - 1] >= (i + '0')) || (v[p.size() - 1] == '>' && p[p.size() - 1] <= (i + '0')))) continue;
         vis[i] = 1;
         p.push_back(i + '0');
         solve();
