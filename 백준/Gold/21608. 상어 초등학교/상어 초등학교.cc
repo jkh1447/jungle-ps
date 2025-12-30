@@ -73,7 +73,7 @@ int main() {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
                 if (board[i][j] == 0) {
-                    noI = i; noJ = j;
+
                     vector<int> tmp = cnt(s, i, j);
                     int count = tmp[0];
                     int emptyCount = tmp[1];
@@ -93,20 +93,7 @@ int main() {
                             maxJ = j;
                             flag = true;
                         }
-                        else if (minEmptyCnt == emptyCount && i < maxI) {
-                            maxCnt = count;
-                            minEmptyCnt = emptyCount;
-                            maxI = i;
-                            maxJ = j;
-                            flag = true;
-                        }
-                        else if (minEmptyCnt == emptyCount && j < maxJ) {
-                            maxCnt = count;
-                            minEmptyCnt = emptyCount;
-                            maxI = i;
-                            maxJ = j;
-                            flag = true;
-                        }
+                        
                         
                     }
 
@@ -114,10 +101,7 @@ int main() {
                 }
             }
         }
-        if (!flag) {
-            maxI = noI;
-            maxJ = noJ;
-        }
+
 
         // cout << "maxI, maxJ: " << maxI << " " << maxJ << "\n";
         board[maxI][maxJ] = stu;
