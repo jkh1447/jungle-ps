@@ -16,38 +16,44 @@ using namespace std;
 #define Y second
 #define LL long long
 
-int dx[4] = { 0, 1, 0, -1 };
-int dy[4] = { 1, 0, -1, 0 };
+// 아래, 오른쪽, 위, 왼쪽
+//int dx[4] = { 1, 0, -1, 0 };
+//int dy[4] = { 0, 1, 0, -1 };
+
+//int dx[4] = { -1, 0, 1, 0 };
+//int dy[4] = { 0, 1, 0, -1 };
 
 //int dx[6] = { 0, 1, 0, -1, 0, 0 };
 //int dy[6] = { 1, 0, -1, 0, 0, 0 };
 //int dz[6] = { 0, 0, 0, 0, 1, -1 };
 
+//int dx[8] = {0, -1, -1, -1, 0, 1, 1, 1};
+//int dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
 
-int main(void) {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int N, K;
+    cin >> N >> K;
 
-    int n, k;
-    cin >> n >> k;
-    vector<pair<int, int>> v;
-    for (int i = 0; i < n; i++) {
-        int a, b;
-        cin >> a >> b;
-        v.push_back({ a, b });
+    vector<int> W(N, 0);
+    vector<int> V(N, 0);
+
+    for (int i = 0; i < N; i++) {
+        cin >> W[i];
+        cin >> V[i];
     }
 
-    vector<int> dp(k+1, 0);
+    vector<int> dp(K + 1, 0);
 
-    for (int i = 1; i <= n; i++) {
-        for (int j = k; j >= 0; j--) {
-            if (j >= v[i-1].X) {
-                dp[j] = max(dp[j], dp[j - v[i-1].X] + v[i-1].Y);
-            }
-
+    for (int i = 0; i < N; i++) {
+        for (int j = K; j > W[i] - 1; j--) {
+            dp[j] = max(dp[j], dp[j - W[i]] + V[i]);
         }
     }
-    
-    cout << dp[k];
+
+    cout << dp[K];
 }
+
