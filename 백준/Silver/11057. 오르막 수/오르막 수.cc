@@ -42,19 +42,21 @@ int main() {
 
     for (int i = 2; i <= N; i++) {
         for (int j = 0; j < 10; j++) {
-            for (int k = 0; k <= j; k++) {
-                dp[i][j] += dp[i - 1][k];
-                dp[i][j] %= 10007;
+            int hap = 0;
+            for (int k = j; k < 10; k++) {
+                hap += dp[i - 1][k];
+                hap %= 10007;
             }
+            dp[i][j] = hap % 10007;
         }
     }
     int ans = 0;
-    for (int i = 0; i <= 9; i++) {
-        ans += dp[N][i];
-        ans %= 10007;
-    }
+        for (int j = 0; j < 10; j++) {
+            ans += dp[N][j];
+            // cout << dp[i][j] << " ";
+        }
 
-    cout << ans;
+    cout << ans % 10007;
     
 }
 
