@@ -17,8 +17,8 @@ using namespace std;
 #define LL long long
 
 // 아래, 오른쪽, 위, 왼쪽
-int dx[4] = { 1, 0, -1, 0 };
-int dy[4] = { 0, 1, 0, -1 };
+//int dx[4] = { 1, 0, -1, 0 };
+//int dy[4] = { 0, 1, 0, -1 };
 
 //int dx[4] = { -1, 0, 1, 0 };
 //int dy[4] = { 0, 1, 0, -1 };
@@ -30,47 +30,29 @@ int dy[4] = { 0, 1, 0, -1 };
 //int dx[8] = {0, -1, -1, -1, 0, 1, 1, 1};
 //int dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
-int n, m;
-vector<int> v;
-vector<int> vis;
-set<vector<int>> ans;
-void solve(int cnt, vector<int> &p) {
-
-    if (cnt == m) {
-        ans.insert(p);
+int N, M;
+void solve(vector<int>& v, int s, vector<int>& ans) {
+    if (ans.size() == M) {
+        for (int nxt : ans) cout << nxt << " ";
+        cout << "\n";
         return;
     }
-    
-    for (int i = 0; i < n; i++) {
-        if (vis[i]) continue;
-        if (!p.empty() && p.back() >= v[i]) continue;
-        vis[i] = 1;
-        p.push_back(v[i]);
-        solve(cnt + 1, p);
-        p.pop_back();
-        vis[i] = 0;
+    for (int i = s; i < v.size(); i++) {
+        ans.push_back(v[i]);
+        solve(v, i + 1, ans);
+        ans.pop_back();
     }
 }
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     
-    cin >> n >> m;
-
-    for (int i = 0; i < n; i++) {
-        int t;
-        cin >> t;
-        v.push_back(t);
-    }
-    vis.resize(n, 0);
-
-    vector<int> path;
-    solve(0, path);
-
-
-    for (vector<int> cur : ans) {
-        for (int i = 0; i < cur.size(); i++) cout << cur[i] << " ";
-        cout << "\n";
-    }
+    
+    cin >> N >> M;
+    vector<int> v(N, 0);
+    for (int i = 0; i < N; i++) cin >> v[i];
+    sort(v.begin(), v.end());
+    vector<int> ans;
+    solve(v, 0, ans);
 }
+
