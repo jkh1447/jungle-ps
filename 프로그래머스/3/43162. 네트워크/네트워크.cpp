@@ -3,28 +3,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 110
-// 111
-// 011
+vector<int> p;
+
+// 1 1 0
+// 1 1 0
+// 0 0 1
+
+int find(int x) {
+    if (p[x] < 0)
+        return x;
+    return p[x] = find(p[x]);
+}
+
+bool uni(int u, int v) {
+    u = find(u);
+    v = find(v);
+    if (u == v) return false;
+    p[v] = u;
+    return true;
+}
 
 int solution(int n, vector<vector<int>> computers) {
-    int answer = 0;
+    int ans = n;
+    p.resize(n, -1);
     
-    vector<int> vis(n+1, 0);
-    for(int i=0; i<n; i++){
-        if(vis[i]) continue;
-        answer++;
-        queue<int> q;
-        q.push(i);
-        vis[i] = 1;
-        while(!q.empty()) {
-            int cur = q.front(); q.pop();
-            for(int j=0; j<computers[cur].size(); j++){
-                if(computers[cur][j] == 0 || vis[j]) continue;
-                vis[j] = 1;
-                q.push(j);
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<n; j++) {
+            if (computers[i][j] == 1) {
+                if(uni(i, j)) ans--;
             }
         }
     }
-    return answer;
+    
+    return ans;
 }
